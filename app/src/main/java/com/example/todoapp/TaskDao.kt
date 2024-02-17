@@ -5,18 +5,19 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TaskDao {
     @Query("SELECT * FROM task")
-    fun getAllTask(): List<Task>
+    fun getAllTask(): Flow<List<Task>>
 
     @Update
-    fun updateTask(tasks: Task)
+    suspend fun updateTask(tasks: Task)
 
     @Insert
-    fun insertTask(tasks: Task)
+    suspend fun insertTask(tasks: Task)
 
     @Delete
-    fun deleteTask(task: Task)
+    suspend fun deleteTask(task: Task)
 }
