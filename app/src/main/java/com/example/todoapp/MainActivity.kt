@@ -1,7 +1,6 @@
 package com.example.todoapp
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,6 +17,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.todoapp.components.EditDialog
+import com.example.todoapp.components.TaskList
 import com.example.todoapp.ui.theme.TodoAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -50,6 +50,6 @@ fun MainContent(viewModel: MainViewModel = hiltViewModel()) {
         }
     }) {
         val tasks by viewModel.tasks.collectAsState(initial = emptyList())
-        Log.d("COUNT TASKS", tasks.size.toString())
+        TaskList(tasks = tasks, onClickRow = { /* todo */ }, onClickDelete = {/* todo */ })
     }
 }
