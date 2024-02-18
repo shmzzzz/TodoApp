@@ -42,14 +42,21 @@ class MainActivity : ComponentActivity() {
 fun MainContent(viewModel: MainViewModel = hiltViewModel()) {
     if (viewModel.isShowDialog) EditDialog()
 
-    Scaffold(floatingActionButton = {
-        FloatingActionButton(
-            onClick = { viewModel.isShowDialog = true },
-        ) {
-            Icon(imageVector = Icons.Default.Add, contentDescription = "新規作成")
-        }
-    }) {
+    Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { viewModel.isShowDialog = true },
+            ) {
+                Icon(imageVector = Icons.Default.Add, contentDescription = "新規作成")
+            }
+        },
+    ) { paddingValues ->
         val tasks by viewModel.tasks.collectAsState(initial = emptyList())
-        TaskList(tasks = tasks, onClickRow = { /* todo */ }, onClickDelete = {/* todo */ })
+        TaskList(
+            tasks = tasks,
+            contentPadding = paddingValues,
+            onClickRow = { /* todo */ },
+            onClickDelete = { viewModel.deleteTask(it) },
+        )
     }
 }
