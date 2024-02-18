@@ -19,6 +19,16 @@ class MainViewModel @Inject constructor(private val taskDao: TaskDao) : ViewMode
 
     val tasks = taskDao.getAllTask().distinctUntilChanged()
 
+    private var editingTask: Task? = null
+    val isEditing: Boolean
+        get() = editingTask != null
+
+    fun setEditingTask(task: Task) {
+        editingTask = task
+        title = task.title
+        description = task.description
+    }
+
     fun createTask() {
         viewModelScope.launch {
             val newTask = Task(title = title, description = description)
@@ -32,7 +42,18 @@ class MainViewModel @Inject constructor(private val taskDao: TaskDao) : ViewMode
         }
     }
 
+    fun updateTask() {
+        editingTask?.let { task ->
+            viewModelScope.launch {
+                task.title = title
+                task.description = description
+                taskDao.updateTask(task)
+            }
+        }
+    }
+
     fun clearTextField() {
+        editingTask = null
         title = ""
         description = ""
     }
