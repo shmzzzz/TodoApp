@@ -12,8 +12,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.todoapp.components.EditDialog
@@ -39,14 +37,11 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainContent(viewModel: MainViewModel = hiltViewModel()) {
-    val isShowDialog = remember {
-        mutableStateOf(false)
-    }
-    if (isShowDialog.value) EditDialog(isShowDialog)
+    if (viewModel.isShowDialog) EditDialog()
 
     Scaffold(floatingActionButton = {
         FloatingActionButton(
-            onClick = { isShowDialog.value = true },
+            onClick = { viewModel.isShowDialog = true },
         ) {
             Icon(imageVector = Icons.Default.Add, contentDescription = "新規作成")
         }
