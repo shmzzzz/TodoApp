@@ -12,9 +12,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.todoapp.components.EditDialog
+import com.example.todoapp.components.TaskList
 import com.example.todoapp.ui.theme.TodoAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -46,6 +49,7 @@ fun MainContent(viewModel: MainViewModel = hiltViewModel()) {
             Icon(imageVector = Icons.Default.Add, contentDescription = "新規作成")
         }
     }) {
-
+        val tasks by viewModel.tasks.collectAsState(initial = emptyList())
+        TaskList(tasks = tasks, onClickRow = { /* todo */ }, onClickDelete = {/* todo */ })
     }
 }
