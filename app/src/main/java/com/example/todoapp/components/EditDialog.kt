@@ -14,9 +14,11 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.todoapp.MainViewModel
 
 @Composable
-fun EditDialog(isShowDialog: MutableState<Boolean>) {
+fun EditDialog(isShowDialog: MutableState<Boolean>, viewModel: MainViewModel = hiltViewModel()) {
     AlertDialog(
         onDismissRequest = { isShowDialog.value = false },
         confirmButton = {
@@ -42,8 +44,8 @@ fun EditDialog(isShowDialog: MutableState<Boolean>) {
             Column {
                 Text(text = "タイトル")
                 TextField(
-                    value = "",
-                    onValueChange = {},
+                    value = viewModel.title,
+                    onValueChange = { viewModel.title = it },
                     colors = TextFieldDefaults.colors(
                         focusedContainerColor = Color.Transparent,
                         unfocusedContainerColor = Color.Transparent
@@ -52,8 +54,8 @@ fun EditDialog(isShowDialog: MutableState<Boolean>) {
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(text = "詳細")
                 TextField(
-                    value = "",
-                    onValueChange = {},
+                    value = viewModel.description,
+                    onValueChange = { viewModel.description = it },
                     colors = TextFieldDefaults.colors(
                         focusedContainerColor = Color.Transparent,
                         unfocusedContainerColor = Color.Transparent
