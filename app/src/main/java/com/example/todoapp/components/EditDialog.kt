@@ -27,7 +27,7 @@ fun EditDialog(viewModel: MainViewModel = hiltViewModel()) {
             Button(
                 onClick = {
                     viewModel.isShowDialog = false
-                    viewModel.createTask()
+                    if (viewModel.isEditing) viewModel.updateTask() else viewModel.createTask()
                     viewModel.clearTextField()
                 },
                 modifier = Modifier.width(120.dp),
@@ -46,7 +46,11 @@ fun EditDialog(viewModel: MainViewModel = hiltViewModel()) {
                 Text(text = "キャンセル")
             }
         },
-        title = { Text(text = "タスク新規作成") },
+        title = {
+            Text(
+                text = if (viewModel.isEditing) "タスク更新" else "タスク新規作成"
+            )
+        },
         text = {
             Column {
                 Text(text = "タイトル")
