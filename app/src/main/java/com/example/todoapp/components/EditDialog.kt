@@ -10,19 +10,20 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.todoapp.MainViewModel
 
 @Composable
-fun EditDialog(isShowDialog: MutableState<Boolean>) {
+fun EditDialog(viewModel: MainViewModel = hiltViewModel()) {
     AlertDialog(
-        onDismissRequest = { isShowDialog.value = false },
+        onDismissRequest = { viewModel.isShowDialog = false },
         confirmButton = {
             Button(
                 onClick = {
-                    isShowDialog.value = false
+                    viewModel.isShowDialog = false
                     // TODO: データの保存処理を行う
                 },
                 modifier = Modifier.width(120.dp),
@@ -32,7 +33,7 @@ fun EditDialog(isShowDialog: MutableState<Boolean>) {
         },
         dismissButton = {
             Button(
-                onClick = { isShowDialog.value = false }, modifier = Modifier.width(120.dp),
+                onClick = { viewModel.isShowDialog = false }, modifier = Modifier.width(120.dp),
             ) {
                 Text(text = "キャンセル")
             }
@@ -42,8 +43,8 @@ fun EditDialog(isShowDialog: MutableState<Boolean>) {
             Column {
                 Text(text = "タイトル")
                 TextField(
-                    value = "",
-                    onValueChange = {},
+                    value = viewModel.title,
+                    onValueChange = { viewModel.title = it },
                     colors = TextFieldDefaults.colors(
                         focusedContainerColor = Color.Transparent,
                         unfocusedContainerColor = Color.Transparent
@@ -52,8 +53,8 @@ fun EditDialog(isShowDialog: MutableState<Boolean>) {
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(text = "詳細")
                 TextField(
-                    value = "",
-                    onValueChange = {},
+                    value = viewModel.description,
+                    onValueChange = { viewModel.description = it },
                     colors = TextFieldDefaults.colors(
                         focusedContainerColor = Color.Transparent,
                         unfocusedContainerColor = Color.Transparent
