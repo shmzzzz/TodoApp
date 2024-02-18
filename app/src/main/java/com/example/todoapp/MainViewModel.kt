@@ -1,6 +1,5 @@
 package com.example.todoapp
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -21,7 +20,6 @@ class MainViewModel @Inject constructor(private val taskDao: TaskDao) : ViewMode
         viewModelScope.launch {
             val newTask = Task(title = title, description = description)
             taskDao.insertTask(newTask)
-            Log.d(MainViewModel::class.java.simpleName, "タスク作成成功")
         }
     }
 
