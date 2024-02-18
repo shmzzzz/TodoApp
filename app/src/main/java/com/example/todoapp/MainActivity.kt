@@ -45,7 +45,9 @@ fun MainContent(viewModel: MainViewModel = hiltViewModel()) {
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { viewModel.isShowDialog = true },
+                onClick = {
+                    viewModel.isShowDialog = true
+                },
             ) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = "新規作成")
             }
@@ -55,7 +57,10 @@ fun MainContent(viewModel: MainViewModel = hiltViewModel()) {
         TaskList(
             tasks = tasks,
             contentPadding = paddingValues,
-            onClickRow = { /* todo */ },
+            onClickRow = {
+                viewModel.setEditingTask(it)
+                viewModel.isShowDialog = true
+            },
             onClickDelete = { viewModel.deleteTask(it) },
         )
     }
