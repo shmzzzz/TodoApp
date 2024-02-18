@@ -1,6 +1,7 @@
 package com.example.todoapp
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,6 +13,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.todoapp.components.EditDialog
@@ -46,6 +49,7 @@ fun MainContent(viewModel: MainViewModel = hiltViewModel()) {
             Icon(imageVector = Icons.Default.Add, contentDescription = "新規作成")
         }
     }) {
-
+        val tasks by viewModel.tasks.collectAsState(initial = emptyList())
+        Log.d("COUNT TASKS", tasks.size.toString())
     }
 }
