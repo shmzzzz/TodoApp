@@ -19,12 +19,16 @@ import com.example.todoapp.MainViewModel
 @Composable
 fun EditDialog(viewModel: MainViewModel = hiltViewModel()) {
     AlertDialog(
-        onDismissRequest = { viewModel.isShowDialog = false },
+        onDismissRequest = {
+            viewModel.isShowDialog = false
+            viewModel.clearTextField()
+        },
         confirmButton = {
             Button(
                 onClick = {
                     viewModel.isShowDialog = false
-                    // TODO: データの保存処理を行う
+                    viewModel.createTask()
+                    viewModel.clearTextField()
                 },
                 modifier = Modifier.width(120.dp),
             ) {
@@ -33,7 +37,11 @@ fun EditDialog(viewModel: MainViewModel = hiltViewModel()) {
         },
         dismissButton = {
             Button(
-                onClick = { viewModel.isShowDialog = false }, modifier = Modifier.width(120.dp),
+                onClick = {
+                    viewModel.isShowDialog = false
+                    viewModel.clearTextField()
+                },
+                modifier = Modifier.width(120.dp),
             ) {
                 Text(text = "キャンセル")
             }
